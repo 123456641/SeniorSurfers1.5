@@ -1,0 +1,118 @@
+name: senior_surfers
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_tts: ^4.2.2
+  cupertino_icons: ^1.0.8
+  supabase_flutter: 2.9.0
+  flutter_chess_board: ^1.0.1
+  syncfusion_flutter_pdfviewer: 29.2.4
+  path_provider: ^2.0.10
+  device_frame: ^1.1.0
+  font_awesome_flutter: ^10.5.0
+  fluttertoast: ^8.2.2
+  flutter_password_strength: ^0.1.0
+  image_picker: ^0.8.5+3
+  permission_handler: ^12.0.0
+  permission_handler_android: 13.0.1
+  timeago: ^3.2.2
+  file_picker: ^8.1.2 
+  path: 1.9.1 
+  url_launcher: 6.3.1
+  intl: ^0.19.0  # For date formatting
+  cached_network_image: ^3.2.3  # For caching images
+  flutter_pdfview: ^1.3.1 
+  http: 1.4.0  # or latest version
+  flutter_local_notifications: ^17.2.3
+  universal_html: ^2.2.4
+  fl_chart: ^0.60.0
+  go_router: ^12.0.0  # Use the latest version
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
+  audioplayers: ^5.2.1
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/seniorsurfersLogoNoName.png" # <- Replace with your icon path
+
+  dependency_overrides:
+  web: ^0.5.1
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/seniorsurfersLogoNoName.png
+    - assets/images/tutorial.png
+    - assets/images/practice.png
+    - assets/images/tech_glossary.png
+    - assets/images/notification.png
+    - assets/images/games.png
+    - assets/images/community_forum.png
+    - assets/images/bgdesign_welcome.png
+    - assets/images/facebooklogo.png
+    - assets/images/googlelogo.png
+    - assets/images/games/damma.png
+    - assets/images/games/solitaire.png
+    - assets/images/games/chess.png
+    - assets/images/elder.png
+    - assets/images/achievements.png
+    - assets/images/practice/viber.png 
+    - assets/images/practice/whatsapp.png 
+    - assets/images/practice/cliqq.png 
+    - assets/images/practice/gmeet.png 
+    - assets/images/practice/zoom.png 
+    - assets/images/practice/gmail.png
+    - assets/pdf/tutorial1.png
+    - assets/pdf/pdfbg.png
+    - assets/images/gmeetdesign.png
+    - assets/images/elderpfp.png
+    - assets/pdf/tutorial1.pdf
+    - assets/images/elderpfp.png
+    - assets/images/badges/badge1.png
+    - assets/images/gmeetgamecover.png
+    - assets/images/zoomgame.png
+    - assets/images/vibergamecover.png
+    - assets/images/joinmeet1.jpg
+    - assets/images/joinmeet2.jpg
+    - assets/images/joinmeet3.jpg
+    - assets/images/joinmeet4.jpg
+    - assets/images/createmeet1.jpg
+    - assets/images/createmeet2.jpg
+    - assets/images/createmeet3.jpg
+    - assets/images/createmeet4.jpg
+    - assets/images/createmeet5.jpg
+    - assets/images/tutorial/google_meet_icon.png
+    - assets/images/tutorial/app_stores.png
+    - assets/images/tutorial/search_google_meet.png
+    - assets/images/tutorial/install_button.png
+    - assets/images/tutorial/ask_to_join.png
+    - assets/images/tutorial/camera_mic_settings.png
+    - assets/images/tutorial/permissions.png
+    - assets/images/tutorial/meeting_link.png
+
+
+    
+  fonts:
+    - family: Caros
+      fonts:
+        - asset: assets/font/Caros-Regular.otf
+          weight: 400
