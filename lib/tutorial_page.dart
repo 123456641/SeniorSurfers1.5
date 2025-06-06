@@ -40,7 +40,7 @@ class _TutorialPage extends State<TutorialPage>
     'cliqq': 'assets/images/practice/cliqq.png',
   };
 
-  // Interactive tutorials data - removed Google Meet practice tutorial
+  // Interactive tutorials data - updated with video support for install tutorial
   final List<InteractiveTutorial> interactiveTutorials = [
     InteractiveTutorial(
       title: 'How to Install Google Meet',
@@ -49,6 +49,9 @@ class _TutorialPage extends State<TutorialPage>
       route: '/gmeet-tutorial',
       color: Colors.green.shade700,
       features: ['📱 Setup', '🔊 Audio', '👥 Senior'],
+      hasVideo: true, // Enable video for this tutorial
+      videoDescription:
+          'Watch a complete video walkthrough of the installation process',
     ),
     InteractiveTutorial(
       title: 'How to Join Google Meet',
@@ -57,6 +60,8 @@ class _TutorialPage extends State<TutorialPage>
       route: '/gmeet-join-tutorial',
       color: Colors.green.shade700,
       features: ['🤝 Join', '🔊 Audio', '👥 Senior'],
+      hasVideo: false, // Keep video as coming soon for this tutorial
+      videoDescription: 'Video tutorial coming soon',
     ),
     // Add more interactive tutorials here as they become available
   ];
@@ -178,8 +183,8 @@ class _TutorialPage extends State<TutorialPage>
     }
   }
 
-  // Show "Coming Soon" dialog for video tutorials
-  void _showComingSoonDialog() {
+  // Show "Coming Soon" dialog for video tutorials that aren't ready
+  void _showComingSoonDialog(String tutorialTitle) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -239,7 +244,7 @@ class _TutorialPage extends State<TutorialPage>
               ),
               SizedBox(height: 16),
               Text(
-                'Video tutorials are currently in development. For now, you can use the interactive step-by-step tutorial with audio guidance.',
+                'The video tutorial for "$tutorialTitle" is currently in development. For now, you can use the interactive step-by-step tutorial with audio guidance.',
                 style: TextStyle(
                   fontSize: _getFontSize(context),
                   color: Colors.grey.shade700,
@@ -292,6 +297,17 @@ class _TutorialPage extends State<TutorialPage>
         );
       },
     );
+  }
+
+  // Navigate to dedicated video page for install tutorial
+  void _navigateToVideoPage(InteractiveTutorial tutorial) {
+    if (tutorial.title == 'How to Install Google Meet' && tutorial.hasVideo) {
+      // Navigate to dedicated video page with the video file
+      context.go('/gmeet-install-video');
+    } else {
+      // Show coming soon dialog for other tutorials
+      _showComingSoonDialog(tutorial.title);
+    }
   }
 
   // Custom widget for long-pressable text
@@ -688,82 +704,100 @@ class _TutorialPage extends State<TutorialPage>
             ),
           ),
 
-          // Video tutorial option (only show for Google Meet tutorials)
-          if (tutorial.platform == 'google_meet') ...[
-            Divider(height: 1, color: Colors.grey.shade200),
-            InkWell(
-              onTap: _showComingSoonDialog,
-              onLongPress:
-                  () => _speakText('Video tutorial option - Coming soon'),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
+          // Video tutorial option - updated logic
+          Divider(height: 1, color: Colors.grey.shade200),
+          InkWell(
+            onTap: () => _navigateToVideoPage(tutorial),
+            onLongPress:
+                () => _speakText(
+                  tutorial.hasVideo
+                      ? 'Video tutorial - ${tutorial.videoDescription}'
+                      : 'Video tutorial option - Coming soon',
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.orange.shade100,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        Icons.video_library,
-                        color: Colors.orange.shade600,
-                        size: 20,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color:
+                          tutorial.hasVideo
+                              ? Colors.green.shade100
+                              : Colors.orange.shade100,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      Icons.video_library,
+                      color:
+                          tutorial.hasVideo
+                              ? Colors.green.shade600
+                              : Colors.orange.shade600,
+                      size: 20,
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildText(
+                          'Video Tutorial',
+                          context,
+                          multiplier: 0.9,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF27445D),
+                        ),
+                        _buildText(
+                          tutorial.hasVideo
+                              ? 'Watch a video walkthrough'
+                              : 'Watch a video walkthrough',
+                          context,
+                          multiplier: 0.8,
+                          color: Colors.grey.shade600,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          tutorial.hasVideo
+                              ? Colors.green.shade50
+                              : Colors.orange.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color:
+                            tutorial.hasVideo
+                                ? Colors.green.shade200
+                                : Colors.orange.shade200,
                       ),
                     ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildText(
-                            'Video Tutorial',
-                            context,
-                            multiplier: 0.9,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF27445D),
-                          ),
-                          _buildText(
-                            'Watch a video walkthrough',
-                            context,
-                            multiplier: 0.8,
-                            color: Colors.grey.shade600,
-                          ),
-                        ],
-                      ),
+                    child: _buildText(
+                      tutorial.hasVideo ? 'Available' : 'Coming Soon',
+                      context,
+                      multiplier: 0.7,
+                      color:
+                          tutorial.hasVideo
+                              ? Colors.green.shade700
+                              : Colors.orange.shade700,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.orange.shade50,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.orange.shade200),
-                      ),
-                      child: _buildText(
-                        'Coming Soon',
-                        context,
-                        multiplier: 0.7,
-                        color: Colors.orange.shade700,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                      color: Colors.grey.shade400,
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: Colors.grey.shade400,
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ],
       ),
     );
@@ -1380,6 +1414,8 @@ class InteractiveTutorial {
   final String route;
   final Color color;
   final List<String> features;
+  final bool hasVideo; // New field to indicate if video is available
+  final String videoDescription; // New field for video description
 
   InteractiveTutorial({
     required this.title,
@@ -1388,6 +1424,8 @@ class InteractiveTutorial {
     required this.route,
     required this.color,
     required this.features,
+    this.hasVideo = false, // Default to false
+    this.videoDescription = '', // Default empty description
   });
 }
 

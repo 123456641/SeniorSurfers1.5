@@ -307,10 +307,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color:
-                            growthRate! >= 0
-                                ? Colors.green.withOpacity(0.1)
-                                : Colors.red.withOpacity(0.1),
+                        color: growthRate! >= 0
+                            ? Colors.green.withOpacity(0.1)
+                            : Colors.red.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Row(
@@ -514,13 +513,12 @@ class _AnalysisPageState extends State<AnalysisPage> {
                                     ),
                                   ),
                                 ),
-                                items:
-                                    availablePlatforms.map((platform) {
-                                      return DropdownMenuItem<String>(
-                                        value: platform,
-                                        child: Text(platform),
-                                      );
-                                    }).toList(),
+                                items: availablePlatforms.map((platform) {
+                                  return DropdownMenuItem<String>(
+                                    value: platform,
+                                    child: Text(platform),
+                                  );
+                                }).toList(),
                                 onChanged: (value) {
                                   if (value != null) {
                                     setState(() {
@@ -535,116 +533,113 @@ class _AnalysisPageState extends State<AnalysisPage> {
 
                           // Pie chart and legend
                           Expanded(
-                            child:
-                                isLoadingQuizData
+                            child: isLoadingQuizData
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : availablePlatforms.isEmpty
                                     ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                    : availablePlatforms.isEmpty
-                                    ? const Center(
-                                      child: Text(
-                                        'No quiz data to display',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.grey,
+                                        child: Text(
+                                          'No quiz data to display',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                      ),
-                                    )
+                                      )
                                     : Row(
-                                      children: [
-                                        // Pie chart on the left
-                                        Expanded(
-                                          flex: 3,
-                                          child: QuizResultsPieChart(
-                                            data:
-                                                quizResultsData[selectedQuizPlatform]!,
+                                        children: [
+                                          // Pie chart on the left
+                                          Expanded(
+                                            flex: 3,
+                                            child: QuizResultsPieChart(
+                                              data: quizResultsData[
+                                                  selectedQuizPlatform]!,
+                                            ),
                                           ),
-                                        ),
 
-                                        // Legend on the right
-                                        Expanded(
-                                          flex: 2,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              // Passed indicator
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    width: 16,
-                                                    height: 16,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: Color(
-                                                            0xFF3B6EA5,
-                                                          ),
+                                          // Legend on the right
+                                          Expanded(
+                                            flex: 2,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // Passed indicator
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 16,
+                                                      height: 16,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(
+                                                          0xFF3B6EA5,
                                                         ),
-                                                  ),
-                                                  const SizedBox(width: 8),
-                                                  const Text(
-                                                    'Passed',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 12),
-                                              // Failed indicator
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    width: 16,
-                                                    height: 16,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: Color(
-                                                            0xFFE57373,
-                                                          ),
+                                                    const SizedBox(width: 8),
+                                                    const Text(
+                                                      'Passed',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 12),
+                                                // Failed indicator
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 16,
+                                                      height: 16,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(
+                                                          0xFFE57373,
                                                         ),
-                                                  ),
-                                                  const SizedBox(width: 8),
-                                                  const Text(
-                                                    'Failed',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                      ),
                                                     ),
+                                                    const SizedBox(width: 8),
+                                                    const Text(
+                                                      'Failed',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 24),
+                                                // Stats
+                                                Text(
+                                                  'Total: ${quizResultsData[selectedQuizPlatform]!.total}',
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 24),
-                                              // Stats
-                                              Text(
-                                                'Total: ${quizResultsData[selectedQuizPlatform]!.total}',
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                              ),
-                                              const SizedBox(height: 8),
-                                              Text(
-                                                'Pass Rate: ${quizResultsData[selectedQuizPlatform]!.passRate.toStringAsFixed(1)}%',
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0xFF3B6EA5),
+                                                const SizedBox(height: 8),
+                                                Text(
+                                                  'Pass Rate: ${quizResultsData[selectedQuizPlatform]!.passRate.toStringAsFixed(1)}%',
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xFF3B6EA5),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                      ),
                           ),
                         ],
                       ),
@@ -687,7 +682,6 @@ class _AnalysisPageState extends State<AnalysisPage> {
                             style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           const SizedBox(height: 16),
-
                           if (isLoadingQuizData)
                             const Center(
                               child: Padding(
@@ -738,8 +732,8 @@ class _AnalysisPageState extends State<AnalysisPage> {
                                         ).withOpacity(0.3),
                                         valueColor:
                                             const AlwaysStoppedAnimation<Color>(
-                                              Color(0xFF3B6EA5),
-                                            ),
+                                          Color(0xFF3B6EA5),
+                                        ),
                                         minHeight: 10,
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -840,15 +834,13 @@ class PieChartPainter extends CustomPainter {
     final double total = (passed + failed).toDouble();
     final double passedAngle = 2 * math.pi * (passed / total);
 
-    final Paint passedPaint =
-        Paint()
-          ..color = const Color(0xFF3B6EA5)
-          ..style = PaintingStyle.fill;
+    final Paint passedPaint = Paint()
+      ..color = const Color(0xFF3B6EA5)
+      ..style = PaintingStyle.fill;
 
-    final Paint failedPaint =
-        Paint()
-          ..color = const Color(0xFFE57373)
-          ..style = PaintingStyle.fill;
+    final Paint failedPaint = Paint()
+      ..color = const Color(0xFFE57373)
+      ..style = PaintingStyle.fill;
 
     final Offset center = Offset(size.width / 2, size.height / 2);
     final double radius = math.min(size.width, size.height) * 0.4;
@@ -856,11 +848,10 @@ class PieChartPainter extends CustomPainter {
     // Handle edge case where there's no data
     if (total <= 0) {
       // Draw empty circle with dotted border
-      final Paint emptyPaint =
-          Paint()
-            ..color = Colors.grey.shade300
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2;
+      final Paint emptyPaint = Paint()
+        ..color = Colors.grey.shade300
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2;
 
       canvas.drawCircle(center, radius, emptyPaint);
       return;
@@ -885,10 +876,9 @@ class PieChartPainter extends CustomPainter {
     );
 
     // Draw inner circle for donut effect
-    final Paint innerCirclePaint =
-        Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.fill;
+    final Paint innerCirclePaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
 
     canvas.drawCircle(
       center,

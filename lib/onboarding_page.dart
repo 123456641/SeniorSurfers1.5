@@ -1,4 +1,4 @@
-//File: onboarding_page.dart - Updated to redirect to /home1
+//File: onboarding_page.dart - Updated to redirect to /home1 AND FIXED BUTTON LAYOUT
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -252,38 +252,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
 
-                // Navigation buttons
+                // FIXED Navigation buttons
                 Container(
                   padding: EdgeInsets.all(isMobile ? 16 : 24),
-                  child: Row(
+                  child: Column(
                     children: [
-                      // Previous button
-                      if (currentPage > 0)
-                        SizedBox(
-                          width: isMobile ? 80 : 100,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : _previousPage,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey.shade600,
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: Text(
-                              'Back',
-                              style: TextStyle(fontSize: fontSize * 0.9),
-                            ),
-                          ),
-                        )
-                      else
-                        SizedBox(width: isMobile ? 80 : 100),
-
-                      const Spacer(),
-
-                      // Page indicators
+                      // Page indicators - centered independently
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
                           onboardingSteps.length,
                           (index) => Container(
@@ -301,43 +277,98 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         ),
                       ),
 
-                      const Spacer(),
+                      const SizedBox(height: 16),
 
-                      // Next/Complete button
-                      SizedBox(
-                        width: isMobile ? 100 : 120,
-                        child: ElevatedButton(
-                          onPressed: _isLoading ? null : _nextPage,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: onboardingSteps[currentPage].color,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child:
-                              _isLoading
-                                  ? SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
+                      // Navigation buttons - properly balanced
+                      Row(
+                        children: [
+                          // Previous button or spacer
+                          Expanded(
+                            flex: 1,
+                            child:
+                                currentPage > 0
+                                    ? Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                        width: isMobile ? 100 : 120,
+                                        height: 48,
+                                        child: ElevatedButton(
+                                          onPressed:
+                                              _isLoading ? null : _previousPage,
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.grey.shade600,
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            'Back',
+                                            style: TextStyle(
+                                              fontSize: fontSize * 0.9,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                  : Text(
-                                    currentPage == onboardingSteps.length - 1
-                                        ? 'Get Started'
-                                        : 'Next',
-                                    style: TextStyle(
-                                      fontSize: fontSize * 0.9,
-                                      fontWeight: FontWeight.bold,
+                                    )
+                                    : const SizedBox.shrink(),
+                          ),
+
+                          // Center space
+                          const Expanded(flex: 1, child: SizedBox()),
+
+                          // Next/Complete button - CENTER the "Get Started" button on last page
+                          Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment:
+                                  currentPage == onboardingSteps.length - 1
+                                      ? Alignment.center
+                                      : Alignment.centerRight,
+                              child: SizedBox(
+                                width: isMobile ? 120 : 140,
+                                height: 48,
+                                child: ElevatedButton(
+                                  onPressed: _isLoading ? null : _nextPage,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        onboardingSteps[currentPage].color,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                        ),
+                                  child:
+                                      _isLoading
+                                          ? const SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                    Colors.white,
+                                                  ),
+                                            ),
+                                          )
+                                          : Text(
+                                            currentPage ==
+                                                    onboardingSteps.length - 1
+                                                ? 'Get Started'
+                                                : 'Next',
+                                            style: TextStyle(
+                                              fontSize: fontSize * 0.9,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

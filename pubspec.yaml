@@ -6,7 +6,8 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: '>=3.0.0 <4.0.0'  # Fixed: Changed from ^3.7.2 to proper range
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -14,9 +15,9 @@ dependencies:
 
   flutter_tts: ^4.2.2
   cupertino_icons: ^1.0.8
-  supabase_flutter: 2.9.0
+  supabase_flutter: ^2.9.0  # Fixed: Added ^ for proper versioning
   flutter_chess_board: ^1.0.1
-  syncfusion_flutter_pdfviewer: 29.2.4
+  syncfusion_flutter_pdfviewer: ^29.2.4  # Fixed: Added ^ for proper versioning
   path_provider: ^2.0.10
   device_frame: ^1.1.0
   font_awesome_flutter: ^10.5.0
@@ -24,23 +25,24 @@ dependencies:
   flutter_password_strength: ^0.1.0
   image_picker: ^0.8.5+3
   permission_handler: ^12.0.0
-  permission_handler_android: 13.0.1
+  permission_handler_android: ^13.0.1  # Fixed: Added ^ for proper versioning
   timeago: ^3.2.2
   file_picker: ^8.1.2 
-  path: 1.9.1 
-  url_launcher: 6.3.1
-  intl: ^0.19.0  # For date formatting
-  cached_network_image: ^3.2.3  # For caching images
+  path: ^1.9.1  # Fixed: Added ^ for proper versioning
+  url_launcher: ^6.3.1  # Fixed: Added ^ for proper versioning
+  intl: ^0.19.0
+  cached_network_image: ^3.2.3
   flutter_pdfview: ^1.3.1 
-  http: 1.4.0  # or latest version
+  http: ^1.4.0  # Fixed: Added ^ for proper versioning
   flutter_local_notifications: ^17.2.3
   universal_html: ^2.2.4
   fl_chart: ^0.60.0
-  go_router: ^12.0.0  # Use the latest version
+  go_router: ^12.0.0
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   audioplayers: ^5.2.1
-  
+  video_player: ^2.7.0  # Fixed: Moved from duplicate dependencies section
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,11 +52,10 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/seniorsurfersLogoNoName.png" # <- Replace with your icon path
+  image_path: "assets/images/seniorsurfersLogoNoName.png"
 
-  dependency_overrides:
-  web: ^0.5.1
-
+dependency_overrides:
+  web: ^0.5.1  # Fixed: Moved to proper location and added ^
 
 flutter:
   uses-material-design: true
@@ -108,9 +109,8 @@ flutter:
     - assets/images/tutorial/camera_mic_settings.png
     - assets/images/tutorial/permissions.png
     - assets/images/tutorial/meeting_link.png
+    - assets/videos/installgmeet.mp4
 
-
-    
   fonts:
     - family: Caros
       fonts:

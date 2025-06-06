@@ -37,6 +37,7 @@ import 'homepage.dart';
 import 'interactivegames/gmeet.dart';
 import 'interactivegames/gmeet1.dart';
 import 'onboarding_page.dart';
+import 'gmeetvideo.dart';
 
 // Global instance for notifications
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -161,6 +162,10 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/notification',
       builder: (context, state) => NotificationPage(),
+    ),
+    GoRoute(
+      path: '/gmeet-install-video',
+      builder: (context, state) => GMeetInstallVideoPage(),
     ),
     GoRoute(
       path: '/techglossary',
